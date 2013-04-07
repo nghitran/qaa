@@ -45,7 +45,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 APP_URL = 'http://'
 
 #LOCALIZATIONS
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'Asia/Ho_Chi_Minh'
 
 #OTHER SETTINGS
 
