@@ -6,3 +6,8 @@ local_settings.py
 src/settings_local.py
 src/osqa-server/
 src/log/
+# For who using PyDev + Eclipse like me :D
+src/.project
+src/.project/*
+src/.pydevproject
+src/.settings/*
