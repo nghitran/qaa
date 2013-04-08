@@ -2,5 +2,14 @@ qaa
 ===
 
 A OpenSource Question and Answer Web Application
-On Linux you 're need to "Nginx + Gunicorn + Virtualen + Python + Django"
-Test System : Ubuntu server 12.04
+
+
+System Requirement
+==================
+
+--Nginx
+--Gunicorn
+--Virtualen
+--Python 2.7.3
+--Django 1.3
+--Ubuntu server 12.04
