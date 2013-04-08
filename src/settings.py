@@ -8,14 +8,17 @@ ADMIN_MEDIA_PREFIX = '/admin_media/'
 SECRET_KEY = '$oo^&_m&qwbib=(_4m_n*zn-d=g#s0he5fx9xonnym#8p6yigm'
 
 TEMPLATE_LOADERS = [
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-    'forum.modules.template_loader.module_templates_loader',
-    'forum.skins.load_template_source',
+    ('django.template.loaders.cached.Loader',(
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'forum.modules.template_loader.module_templates_loader',
+        'forum.skins.load_template_source',
+    ))
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.common.CommonMiddleware',
     'forum.middleware.extended_user.ExtendedUser',
     'forum.middleware.anon_user.ConnectToSessionMessagesMiddleware',
@@ -29,7 +32,8 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     'django.core.context_processors.request',
     'forum.context.application_settings',
     'forum.user_messages.context_processors.user_messages',
-    'django.core.context_processors.auth',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages'
 ]
 
 ROOT_URLCONF = 'urls'
@@ -71,6 +75,8 @@ for path in app_url_split[1].split('/')[1:]:
 if FORCE_SCRIPT_NAME.endswith('/'):
     FORCE_SCRIPT_NAME = FORCE_SCRIPT_NAME[:-1]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 #Module system initialization
 MODULES_PACKAGE = 'forum_modules'
 MODULES_FOLDER = os.path.join(SITE_SRC_ROOT, MODULES_PACKAGE)
@@ -101,6 +107,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sitemaps',
     'django.contrib.markup',
+    'django.contrib.messages',
     'forum',
 ]
 
@@ -112,11 +119,11 @@ if DEBUG:
     except:
         pass
 
-#~ try:
-    #~ import south
-    #~ INSTALLED_APPS.append('south')
-#~ except:
-    #~ pass
+try:
+    import south
+    INSTALLED_APPS.append('south')
+except:
+    pass
 
 if not DEBUG:
     try:

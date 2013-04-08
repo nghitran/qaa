@@ -6,21 +6,23 @@ Time-stamp: <2008-07-19 23:16:19 carljm context_processors.py>
 """
 from django.utils.encoding import StrAndUnicode
 
-from forum.user_messages import get_and_delete_messages
+#from forum.user_messages import get_and_delete_messages
+
+from django.contrib import messages
 
 def user_messages (request):
     """
     Returns session messages for the current session.
 
     """
-    messages = request.user.get_and_delete_messages()
+    uMessages = messages.get_messages(request)
     #if request.user.is_authenticated():
     #else:
     #    messages = LazyMessages(request)
     #import inspect
     #print inspect.stack()[1]
     #print messages
-    return { 'user_messages': messages }
+    return { 'user_messages': uMessages }
 
 class LazyMessages (StrAndUnicode):
     """
@@ -49,7 +51,7 @@ class LazyMessages (StrAndUnicode):
     def _get_messages(self):
         if hasattr(self, '_messages'):
             return self._messages
-        self._messages = get_and_delete_messages(self.request)
+        self._messages = messages.get_messages(self.request)
         return self._messages
     messages = property(_get_messages)
     
