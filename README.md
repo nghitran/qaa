@@ -11,5 +11,5 @@ System Requirements
 * Gunicorn
 * Virtualen
 * Python 2.7.3
-* Django 1.3
+* Django 1.4.x
 * Ubuntu server 12.04
