@@ -4,10 +4,8 @@ from base import Setting, SettingSet
 from django.forms.widgets import Textarea
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings as djsettings
-from django.utils.version import get_svn_revision
 
 OSQA_VERSION = "Development Build"
-SVN_REVISION = get_svn_revision(djsettings.SITE_SRC_ROOT)
 
 MAINTAINANCE_MODE = Setting('MAINTAINANCE_MODE', None)
 
