@@ -4,7 +4,7 @@ QAA
 A OpenSource Question and Answer Web Application
 
 
-System Requirement
+System Requirements
 ==================
 
 * Nginx
