@@ -2,6 +2,7 @@ from forum.models import User
 from django.db.models import Q, Count
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.template.defaultfilters import slugify
+from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404
@@ -164,7 +165,7 @@ def edit_user(request, id):
             user.save()
             EditProfileAction(user=user, ip=request.META['REMOTE_ADDR']).save()
 
-            request.user.message_set.create(message=_("Profile updated."))
+            messages.add_message(request, messages.SUCCESS, _("Profile updated."))
             return HttpResponseRedirect(user.get_profile_url())
     else:
         form = EditUserForm(user)

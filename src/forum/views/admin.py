@@ -3,6 +3,7 @@ import os, time, csv, random
 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from forum.http_responses import HttpResponseUnauthorized
 from django.template import RequestContext
@@ -157,7 +158,7 @@ def settings_set(request, set_name):
 
                 if not 'reset' in request.POST:
                     form.save()
-                    request.user.message_set.create(message=_("'%s' settings saved succesfully") % set_name)
+                    messages.add_message(request, messages.SUCCESS, _("'%s' settings saved succesfully") % set_name)
 
                     if set_name in ('minrep', 'badges', 'repgain'):
                         settings.SETTINGS_PACK.set_value("custom")
@@ -278,7 +279,7 @@ def go_defaults(request):
 
     settings.SETTINGS_PACK.set_value("default")
 
-    request.user.message_set.create(message=_('All values reverted to defaults'))
+    messages.add_message(request, messages.INFO, _('All values reverted to defaults'))
     return HttpResponseRedirect(reverse('admin_index'))
 
 
