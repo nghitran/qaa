@@ -7,7 +7,8 @@ A Question and Answer Web App
 System Requirements
 ==================
 
-- Production Environment:
+Production Environment
+----------------------
 
 * Nginx
 * Gunicorn
@@ -16,7 +17,8 @@ System Requirements
 * Django 1.4.x
 * Ubuntu server 12.04
 
-- Development Environment:
+Development Environment
+-----------------------
 
 * Virtualenv
 * Python 2.7.3
