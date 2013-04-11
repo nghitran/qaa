@@ -15,7 +15,7 @@ def generate_uri(querydict, exclude=None):
 
     for k, l in querydict.iterlists():
         if (not exclude) or (not k in exclude):
-            all += ["%s=%s" % (k, urlquote(strip_tags(v))) for v in l]
+            all += ["%s=%s" % (escape(k), urlquote(strip_tags(v))) for v in l]
         
     return "&".join(all)
 

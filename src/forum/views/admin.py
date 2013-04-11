@@ -34,7 +34,7 @@ def super_user_required(fn):
 
 def admin_page(fn):
     @super_user_required
-    def wrapper(request, *args, **kwargs):
+    def wrapper(request, *args, **kwargs):        
         res = fn(request, *args, **kwargs)
         if isinstance(res, HttpResponse):
             return res
@@ -48,7 +48,7 @@ def admin_page(fn):
                 'form', 'moderation', 'css', 'headandfoot', 'head', 'view', 'urls')]
                 , lambda s1, s2: s1.weight - s2.weight)
 
-        context['tools'] = TOOLS
+        context['tools'] = [(name, tool.label) for name, tool in TOOLS.items()]
 
         unsaved = request.session.get('previewing_settings', {})
         context['unsaved'] = set([getattr(settings, s).set.name for s in unsaved.keys() if hasattr(settings, s)])
@@ -265,7 +265,7 @@ def go_bootstrap(request):
 
     settings.SETTINGS_PACK.set_value("bootstrap")
 
-    request.user.message_set.create(message=_('Bootstrap mode enabled'))
+    messages.add_message(request, messages.SUCCESS, _('Bootstrap mode enabled'))
     return HttpResponseRedirect(reverse('admin_index'))
 
 @super_user_required
@@ -295,7 +295,7 @@ def recalculate_denormalized(request):
         u.reputation = u.reputes.aggregate(reputation=models.Sum('value'))['reputation']
         u.save()
 
-    request.user.message_set.create(message=_('All values recalculated'))
+    messages.add_message(request, messages.INFO, _('All values recalculated'))
     return HttpResponseRedirect(reverse('admin_index'))
 
 @admin_page
@@ -314,12 +314,12 @@ def maintenance(request):
                 else:
                     message = _('Settings adjusted')
 
-                request.user.message_set.create(message=message)
+                messages.add_message(request, messages.INFO, message)
 
                 return HttpResponseRedirect(reverse('admin_maintenance'))
         elif 'open' in request.POST:
             settings.MAINTAINANCE_MODE.set_value(None)
-            request.user.message_set.create(message=_("Your site is now running normally"))
+            messages.add_message(request, messages.INFO, _("Your site is now running normally"))
             return HttpResponseRedirect(reverse('admin_maintenance'))
     else:
         form = MaintenanceModeForm(initial={'ips': request.META['REMOTE_ADDR'],
@@ -398,7 +398,7 @@ def create_user(request):
             user_.save()
             UserJoinsAction(user=user_).save()
 
-            request.user.message_set.create(message=_("New user created sucessfully. %s.") % html.hyperlink(
+            messages.add_message(request, messages.SUCCESS, _("New user created sucessfully. %s.") % html.hyperlink(
                     user_.get_profile_url(), _("See %s profile") % user_.username, target="_blank"))
 
             return HttpResponseRedirect(reverse("admin_tools", kwargs={'name': 'createuser'}))
@@ -478,7 +478,7 @@ def node_management(request):
 
                     message = _("All selected nodes deleted")
 
-                request.user.message_set.create(message=message)
+                messages.add_message(request, messages.SUCCESS, message)
 
                 params = pagination.generate_uri(request.GET, ('page',))
                 
