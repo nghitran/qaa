@@ -1,7 +1,7 @@
 QAA
 ===
 
-An Open-source Question and Answer Web Application
+An Open-source Question and Answer Web App
 
 
 System Requirements
