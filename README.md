@@ -15,6 +15,7 @@ Production Environment
 * Virtualenv
 * Python 2.7.3
 * Django 1.4.x
+* MySQL 5.5
 * Ubuntu server 12.04
 
 Development Environment
@@ -23,4 +24,5 @@ Development Environment
 * Virtualenv
 * Python 2.7.3
 * Django 1.4.x
+* MySQL 5.5
 * Ubuntu 12.xx
