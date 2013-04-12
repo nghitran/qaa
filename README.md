@@ -47,7 +47,7 @@ QAA is licensed under the GPLv3 License. See the [LICENSE](https://github.com/da
 Contributors
 ============
 
-QAA is a fork from the [OSQA](http://www.osqa.net/) software and by SCAFA Team.
+QAA is a fork from the [OSQA](http://www.osqa.net/) software and being actively maintained by SCAFA Team.
 
 Our core members and maintainers are:
 
