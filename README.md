@@ -5,10 +5,9 @@ A Question and Answer Web App
 
 
 Requirements
-==================
+------------
 
-Production Environment
-----------------------
+### Production Environment
 
 * Nginx
 * Gunicorn
@@ -18,8 +17,7 @@ Production Environment
 * MySQL 5.5
 * Ubuntu server 12.04
 
-Development Environment
------------------------
+### Development Environment
 
 * Virtualenv
 * Python 2.7.3
@@ -27,14 +25,15 @@ Development Environment
 * MySQL 5.5
 * Ubuntu 12.xx
 
+
 Documentation
-=============
+-------------
 
 https://qaa.readthedocs.org/en/latest/
 
 
 Installation
-============
+------------
 
 1. Download the latest [tar ball](https://github.com/dangtrinh/qaa/tarball/master).
 2. Untar and copy it to your directory (e.g. '/var/www/django_projects/')
@@ -44,13 +43,13 @@ Installation
 
 
 License
-=======
+-------
 
 QAA is licensed under the GPLv3 License. See the [LICENSE](https://github.com/dangtrinh/qaa/blob/master/LICENSE) file for more details.
 
 
 Contributors
-============
+------------
 
 QAA is a fork from the [OSQA](http://www.osqa.net/) software and being actively maintained by SCAFA Team.
 
