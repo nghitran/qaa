@@ -1,7 +1,9 @@
 QAA
 ===
 
-A Question and Answer Web App
+QAA is a Question and Answer Web App. 
+QAA is built on top of Django framework and is initially forked from the OSQA source code [OSQA](http://www.osqa.net/) to make it better and more convenient for everyone to use and develope it.  
+
 
 
 Requirements
@@ -51,9 +53,7 @@ QAA is licensed under the GPLv3 License. See the [LICENSE](https://github.com/da
 Contributors
 ------------
 
-QAA is a fork from the [OSQA](http://www.osqa.net/) software and being actively maintained by SCAFA Team.
-
-Our core members and maintainers are:
+We are SCAFA Team. Our core members and maintainers are:
 
 * @[dangtrinh](https://github.com/dangtrinh)
 * @[nghitran](https://github.com/nghitran)
