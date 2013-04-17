@@ -1,0 +1,11 @@
+import os
+import sys
+sys.path.append('/path/to_dir_above')
+sys.path.append('/path/to_dir_above/qaa')
+# The first part of this module name should be identical to the directory name
+# of the QAA source.  For instance, if the full path to QAA is
+# /home/qaa/qaa-src, then the DJANGO_SETTINGS_MODULE should have a value
+# of 'qaa-src.settings'.
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
