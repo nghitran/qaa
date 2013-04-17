@@ -3,8 +3,9 @@
 *.pyc
 *~
 local_settings.py
+src/wsgi.py
 src/settings_local.py
-src/osqa-server/
+src/deploy-config/
 src/log/
 # For who using PyDev + Eclipse like me :D
 src/.project
