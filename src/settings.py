@@ -75,7 +75,7 @@ for path in app_url_split[1].split('/')[1:]:
 if FORCE_SCRIPT_NAME.endswith('/'):
     FORCE_SCRIPT_NAME = FORCE_SCRIPT_NAME[:-1]
 
-MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+MESSAGE_STORAGE = 'offline_messages.storage.OfflineStorageEngine'
 
 #Module system initialization
 MODULES_PACKAGE = 'forum_modules'
@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     'django.contrib.markup',
     'django.contrib.messages',
     'forum',
+    'offline_messages'
 ]
 
 if DEBUG:

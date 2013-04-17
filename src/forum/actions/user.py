@@ -5,6 +5,7 @@ from forum.models import Award, Badge, ValidationHash, User
 from forum import settings
 from forum.settings import APP_SHORT_NAME
 from forum.utils.mail import send_template_email
+from offline_messages import utils as offline_msg_utils
 
 class UserJoinsAction(ActionProxy):
     verb = _("joined")
@@ -62,13 +63,13 @@ class BonusRepAction(ActionProxy):
         self.repute(self._affected, self._value)
 
         if self._value > 0:
-            self._affected.message_set.create(
+            offline_msg_utils.create_offline_message(self._affected, 
                     message=_("Congratulations, you have been awarded an extra %s reputation points.") % self._value +
-                    '<br />%s' % self.extra.get('message', _('Thank you')))
+                    '<br />%s' % self.extra.get('message', _('Thank you')), level=offline_msg_utils.constants.SUCCESS)
         else:
-            self._affected.message_set.create(
+            offline_msg_utils.create_offline_message(self._affected,
                     message=_("You have been penalized in %s reputation points.") % self._value +
-                    '<br />%s' % self.extra.get('message', ''))
+                    '<br />%s' % self.extra.get('message', ''), level=offline_msg_utils.constants.WARNING)
 
     def describe(self, viewer=None):
         value = self.extra.get('value', _('unknown'))
@@ -116,10 +117,10 @@ class AwardAction(ActionProxy):
 
         self.user.save()
 
-        self.user.message_set.create(message=_(
+        offline_msg_utils.create_offline_message(self.user, message=_(
                 """Congratulations, you have received a badge '%(badge_name)s'. Check out <a href=\"%(profile_url)s\">your profile</a>."""
                 ) %
-        dict(badge_name=award.badge.name, profile_url=self.user.get_profile_url()))
+        dict(badge_name=award.badge.name, profile_url=self.user.get_profile_url()), level=offline_msg_utils.constants.SUCCESS)
 
     def cancel_action(self):
         award = self.award
@@ -164,7 +165,7 @@ class SuspendAction(ActionProxy):
             u.is_active = True
             u._pop_suspension_cache()
             u.save()
-            u.message_set.create(message=_("Your suspension has been removed."))
+            offline_msg_utils.create_offline_message(u, message=_("Your suspension has been removed."), level=offline_msg_utils.constants.INFO)
 
     def describe(self, viewer=None):
         if self.extra.get('bantype', 'indefinitely') == 'forxdays' and self.extra.get('forxdays', None):
