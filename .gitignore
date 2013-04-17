@@ -11,4 +11,4 @@ src/.project
 src/.project/*
 src/.pydevproject
 src/.settings/*
-src/cache/
+src/cache/*
