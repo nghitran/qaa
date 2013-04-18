@@ -92,27 +92,26 @@
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic simple">
-<li>Download the latest tar ball (<a class="reference external" href="https://github.com/dangtrinh/qaa/tarball/master">https://github.com/dangtrinh/qaa/tarball/master</a>).</li>
-<li>Untar and copy it to your directory (e.g. &#8216;/var/www/django_projects/&#8217;)</li>
-<li>Copy the settings_local.py.dist file to settings_local.py and modify it with your own information.</li>
-<li>(Optional) Create and activate your virtualenv environment.</li>
-<li>Install requirement packages:</li>
-</ol>
-<dl class="docutils">
-<dt>::</dt>
-<dd>pip install -r requirements.txt</dd>
-</dl>
-<ol class="arabic simple" start="6">
-<li>Get your database ready:</li>
-</ol>
-<dl class="docutils">
-<dt>::</dt>
-<dd>python manage.py syncdb
-python manage.py migrate &#8211;all</dd>
-</dl>
-<ol class="arabic simple" start="7">
-<li>Run the command &#8216;python manage.py runserver&#8217; and enjoy QAA.</li>
+<ol class="arabic">
+<li><p class="first">Download the latest tar ball (<a class="reference external" href="https://github.com/dangtrinh/qaa/tarball/master">https://github.com/dangtrinh/qaa/tarball/master</a>).</p>
+</li>
+<li><p class="first">Untar and copy it to your directory (e.g. &#8216;/var/www/django_projects/&#8217;)</p>
+</li>
+<li><p class="first">Copy the settings_local.py.dist file to settings_local.py and modify it with your own information.</p>
+</li>
+<li><p class="first">(Optional) Create and activate your virtualenv environment.</p>
+</li>
+<li><p class="first">Install requirement packages:</p>
+<div class="highlight-python"><pre>pip install -r requirements.txt</pre>
+</div>
+</li>
+<li><p class="first">Get your database ready:</p>
+<div class="highlight-python"><pre>python manage.py syncdb
+python manage.py migrate --all</pre>
+</div>
+</li>
+<li><p class="first">Run the command &#8216;python manage.py runserver&#8217; and enjoy QAA.</p>
+</li>
 </ol>
 </div>
 <div class="section" id="license">
