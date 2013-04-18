@@ -6,3 +6,5 @@ python-openid
 -U distribute
 mysql-python
 South
+jsonfield
+git+https://github.com/nghitran/django-offline-messages.git
