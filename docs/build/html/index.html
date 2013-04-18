@@ -92,12 +92,30 @@
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic simple">
-<li>Download the latest tar ball (<a class="reference external" href="https://github.com/dangtrinh/qaa/tarball/master">https://github.com/dangtrinh/qaa/tarball/master</a>).</li>
-<li>Untar and copy it to your directory (e.g. &#8216;/var/www/django_projects/&#8217;)</li>
-<li>Copy the settings_local.py.dist file to settings_local.py and modify it with your own information.</li>
-<li>Activate your virtualenv environment and run syncdb to create the database schema.</li>
-<li>Run the command &#8216;python manage.py runserver&#8217; and enjoy QAA.</li>
+<ol class="arabic">
+<li><p class="first">Download the latest tar ball (<a class="reference external" href="https://github.com/dangtrinh/qaa/tarball/master">https://github.com/dangtrinh/qaa/tarball/master</a>).</p>
+</li>
+<li><p class="first">Untar and copy it to your directory (e.g. &#8216;/var/www/django_projects/&#8217;)</p>
+</li>
+<li><p class="first">Copy the settings_local.py.dist file to settings_local.py and modify it with your own information.</p>
+</li>
+<li><p class="first">(Optional) Create and activate your virtualenv environment.</p>
+</li>
+<li><dl class="first docutils">
+<dt>Install requirement packages::</dt>
+<dd><p class="first last">pip install -r requirements.txt</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Get your database ready::</dt>
+<dd><p class="first last">python manage.py syncdb
+python manage.py migrate &#8211;all</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Run the command &#8216;python manage.py runserver&#8217; and enjoy QAA.</p>
+</li>
 </ol>
 </div>
 <div class="section" id="license">
