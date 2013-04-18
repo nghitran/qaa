@@ -65,11 +65,17 @@ Installation
 2. Untar and copy it to your directory (e.g. '/var/www/django_projects/')
 3. Copy the settings_local.py.dist file to settings_local.py and modify it with your own information.
 4. (Optional) Create and activate your virtualenv environment.
-5. Install requirement packages::
+5. Install requirement packages:
+
+::
     pip install -r requirements.txt
-6. Get your database ready::
+
+6. Get your database ready:
+
+::
     python manage.py syncdb
     python manage.py migrate --all
+
 7. Run the command 'python manage.py runserver' and enjoy QAA. 
 
 
