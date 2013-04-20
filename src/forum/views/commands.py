@@ -582,5 +582,4 @@ def award_points(request, user_id, answer_id):
         # And give them to the awarded one
         BonusRepAction(user=request.user, extra=extra).save(data=dict(value=points, affected=awarded_user))
 
-        #return { 'message' : _("You have awarded %s with %d points") % (awarded_user, points) }
         return { 'message' : _("You have awarded %(awarded_user)s with %(points)d points") % {'awarded_user' : awarded_user, 'points' : points} }
