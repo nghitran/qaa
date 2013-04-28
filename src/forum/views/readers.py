@@ -16,7 +16,7 @@ from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import SortedDict
 from django.views.decorators.cache import cache_page
-from django.utils.http import urlquote  as django_urlquote
+from django.utils.http import urlquote
 from django.template.defaultfilters import slugify
 from django.utils.safestring import mark_safe
 
