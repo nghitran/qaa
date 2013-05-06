@@ -1,4 +1,6 @@
+import base64
 import hashlib
+import hmac
 from time import time
 from datetime import datetime
 from urllib import urlopen,  urlencode
@@ -6,15 +8,13 @@ from forum.authentication.base import AuthenticationConsumer, ConsumerTemplateCo
 from django.utils.translation import ugettext as _
 
 import settings
-
 try:
-    from json import load as load_json
-except:
-    from django.utils.simplejson import JSONDecoder
-
-    def load_json(json):
-        decoder = JSONDecoder()
-        return decoder.decode(json.read())
+    import simplejson
+    _parse_json = lambda s: simplejson.loads(s)
+except ImportError:
+    # For Google AppEngine
+    from django.utils import simplejson
+    _parse_json = lambda s: simplejson.loads(s)
 
 REST_SERVER = 'http://api.facebook.com/restserver.php'
 
@@ -22,15 +22,14 @@ class FacebookAuthConsumer(AuthenticationConsumer):
     
     def process_authentication_request(self, request):
         API_KEY = str(settings.FB_API_KEY)
+        cookieName = 'fbsr_'+API_KEY
 
-        if API_KEY in request.COOKIES:
-            if self.check_cookies_signature(request.COOKIES):
-                if self.check_session_expiry(request.COOKIES):
-                    return request.COOKIES[API_KEY + '_user']
-                else:
-                    raise InvalidAuthentication(_('Sorry, your Facebook session has expired, please try again'))
-            else:
-                raise InvalidAuthentication(_('The authentication with Facebook connect failed due to an invalid signature'))
+        if cookieName in request.COOKIES:
+            cookieData = request.COOKIES['fbsr_'+API_KEY]
+            app_secret = str(settings.FB_APP_SECRET)
+            response = parse_signed_request(cookieData, app_secret)
+                
+            return response['user_id'] 
         else:
             raise InvalidAuthentication(_('The authentication with Facebook connect failed, cannot find authentication tokens'))
 
@@ -43,17 +42,20 @@ class FacebookAuthConsumer(AuthenticationConsumer):
         signature = ''.join(['%s=%s' % (key,  values[key]) for key in keys]) + str(settings.FB_APP_SECRET)
         return hashlib.md5(signature).hexdigest()
 
-    def check_session_expiry(self, cookies):
-        return datetime.fromtimestamp(float(cookies[settings.FB_API_KEY+'_expires'])) > datetime.now()
+    def check_session_expiry(self, request, cookieName):
+        import Cookie
+    
+        c = Cookie.SmartCookie()
+        c.load(request.META['HTTP_COOKIE'])
+        cookieExpiry = c[cookieName]['max-age']
+        return datetime.fromtimestamp(cookieExpiry) > datetime.now()
 
     def check_cookies_signature(self, cookies):
         API_KEY = str(settings.FB_API_KEY)
 
-        values = {}
-
-        for key in cookies.keys():
-            if (key.startswith(API_KEY + '_')):
-                values[key.replace(API_KEY + '_',  '')] = cookies[key]
+        cookieName = 'fbsr_'+API_KEY
+        
+        app_secret = str(settings.FB_APP_SECRET)
 
         return self.generate_signature(values) == cookies[API_KEY]
 
@@ -69,12 +71,41 @@ class FacebookAuthConsumer(AuthenticationConsumer):
         }
 
         request_data['sig'] = self.generate_signature(request_data)
-        fb_response = load_json(urlopen(REST_SERVER, urlencode(request_data)))[0]
+        query_resp = urlopen(REST_SERVER, urlencode(request_data)).read()
+        fb_response = _parse_json(query_resp)[0]
 
         return {
             'username': fb_response['first_name'] + ' ' + fb_response['last_name'],
             'email': fb_response['email']
         }
+
+def urlsafe_b64decode(str):
+        l = len(str)
+        pl = l % 4
+        return base64.urlsafe_b64decode(str.ljust(l+pl, "="))
+ 
+ 
+def parse_signed_request(signed_request, secret):
+    if "." in signed_request:
+        esig, payload = signed_request.split(".")
+    else:
+        return {}
+
+    sig = urlsafe_b64decode(str(esig))
+    data = _parse_json(urlsafe_b64decode(str(payload)))
+
+    if not isinstance(data, dict):
+        raise InvalidAuthentication(_("Pyload is not a json string!"))
+        return {}
+
+    if data["algorithm"].upper() == "HMAC-SHA256":
+        if hmac.new(secret, payload, hashlib.sha256).digest() == sig:
+            return data
+
+    else:
+        raise InvalidAuthentication(_("Not HMAC-SHA256 encrypted!"))
+
+    return {}
 
 class FacebookAuthContext(ConsumerTemplateContext):
     mode = 'BIGICON'

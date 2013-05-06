@@ -67,6 +67,7 @@
         {% loadregistry head_content %}{% endloadregistry %}
     </head>
     <body>
+        {% block fb_js %}{% endblock %}
         <div class="notify" style="display:none">
             {% autoescape off %}
                 {% if user_messages %}

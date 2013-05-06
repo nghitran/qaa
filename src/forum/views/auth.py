@@ -33,6 +33,8 @@ from forum.actions import UserJoinsAction
 from forum.settings import REP_GAIN_BY_EMAIL_VALIDATION
 from vars import ON_SIGNIN_SESSION_ATTR, PENDING_SUBMISSION_SESSION_ATTR
 
+from forum_modules.facebookauth import settings as fb_settings
+
 def signin_page(request):
     referer = request.META.get('HTTP_REFERER', '/')
 
@@ -77,6 +79,7 @@ def signin_page(request):
             'top_stackitem_providers': top_stackitem_providers,
             'stackitem_providers': stackitem_providers,
             'smallicon_providers': smallicon_providers,
+            'fb_api_key': str(fb_settings.FB_API_KEY)
             },
             RequestContext(request))
 
@@ -117,7 +120,7 @@ def process_provider_signin(request, provider):
             if isinstance(assoc_key, (type, User)):
                 if request.user != assoc_key:
                     request.session['auth_error'] = _(
-                            "Sorry, these login credentials belong to anoother user. Plese terminate your current session and try again."
+                            "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
                             )
                 else:
                     request.session['auth_error'] = _("You are already logged in with that user.")
@@ -129,7 +132,7 @@ def process_provider_signin(request, provider):
                                 "These login credentials are already associated with your account.")
                     else:
                         request.session['auth_error'] = _(
-                                "Sorry, these login credentials belong to anoother user. Plese terminate your current session and try again."
+                                "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
                                 )
                 except:
                     uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider)
