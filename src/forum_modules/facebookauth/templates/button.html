@@ -3,4 +3,4 @@
         window.location = "{% url auth_provider_done provider=provider.id %}";
     }
 </script>
-<fb:login-button v="2" size="medium" onlogin="redirect_to_done_page()">Facebook</fb:login-button>
+<fb:login-button perms="email" v="2" size="medium" onlogin="redirect_to_done_page()">Facebook</fb:login-button>

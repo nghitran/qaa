@@ -20,7 +20,7 @@ class TwitterAuthConsumer(OAuthAbstractAuthConsumer):
                 "https://twitter.com/oauth/authorize",
         )
 
-    def get_user_data(self, key):
+    def get_user_data(self, key, cookies):
         json = self.fetch_data(key, "https://twitter.com/account/verify_credentials.json")
         
         if 'screen_name' in json:

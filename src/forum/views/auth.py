@@ -200,7 +200,7 @@ def external_register(request):
             return HttpResponseRedirect(reverse('auth_signin'))
 
         provider_class = AUTH_PROVIDERS[auth_provider].consumer
-        user_data = provider_class.get_user_data(request.session['assoc_key'])
+        user_data = provider_class.get_user_data(key=request.session['assoc_key'], cookies=request.COOKIES)
 
         if not user_data:
             user_data = request.session.get('auth_consumer_data', {})
