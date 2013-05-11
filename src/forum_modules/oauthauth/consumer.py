@@ -1,12 +1,12 @@
 import urllib
 import urllib2
-import httplib
 import time
 
 from forum.authentication.base import AuthenticationConsumer, InvalidAuthentication
 from django.utils.translation import ugettext as _
 
 from lib import oauth
+import httplib2
 
 class OAuthAbstractAuthConsumer(AuthenticationConsumer):
 
@@ -37,6 +37,7 @@ class OAuthAbstractAuthConsumer(AuthenticationConsumer):
         if token.key != request.GET.get('oauth_token', 'no-token'):
             raise InvalidAuthentication(_("Something went wrong! Auth tokens do not match"))
 
+        token.verifier = request.GET.get('oauth_verifier', '')
         access_token = self.fetch_access_token(token)
 
         return access_token.to_string()
@@ -63,13 +64,13 @@ class OAuthAbstractAuthConsumer(AuthenticationConsumer):
         return full_url
 
     def fetch_access_token(self, token):
-        oauth_request = oauth.OAuthRequest.from_consumer_and_token(self.consumer, token=token, http_url=self.access_token_url)
+        oauth_request = oauth.OAuthRequest.from_consumer_and_token(self.consumer, token=token, http_method='POST', http_url=self.access_token_url)
         oauth_request.sign_request(self.signature_method, self.consumer, token)
-        params = oauth_request.parameters
-        data = urllib.urlencode(params)
-        full_url='%s?%s'%(self.access_token_url, data)
-        response = urllib2.urlopen(full_url)
-        return oauth.OAuthToken.from_string(response.read())
+        header_params = oauth_request.to_header()
+        data = {'oauth_verifier': token.verifier}
+        h = httplib2.Http()
+        resp, content = h.request(self.access_token_url, oauth_request.http_method, headers=header_params, body=urllib.urlencode(data))
+        return oauth.OAuthToken.from_string(content)
 
     def fetch_data(self, token, http_url, parameters=None):
         access_token = oauth.OAuthToken.from_string(token)
@@ -80,8 +81,8 @@ class OAuthAbstractAuthConsumer(AuthenticationConsumer):
         oauth_request.sign_request(self.signature_method, self.consumer, access_token)
 
         url = oauth_request.to_url()
-        connection = httplib.HTTPSConnection(self.server_url)
-        connection.request(oauth_request.http_method, url)
+        connection = httplib2.Http()
+        resp, content = connection.request(url, oauth_request.http_method)
 
-        return connection.getresponse().read()
+        return content
 

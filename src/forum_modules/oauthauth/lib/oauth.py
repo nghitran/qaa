@@ -90,6 +90,7 @@ class OAuthToken(object):
     """
     key = None
     secret = None
+    verifier = None
 
     def __init__(self, key, secret):
         self.key = key
@@ -105,7 +106,11 @@ class OAuthToken(object):
         """
         params = cgi.parse_qs(s, keep_blank_values=False)
         key = params['oauth_token'][0]
-        secret = params['oauth_token_secret'][0]
+        if 'oauth_token_secret' in params:
+            secret = params['oauth_token_secret'][0]
+        else:
+            secret = ''
+            
         return OAuthToken(key, secret)
     from_string = staticmethod(from_string)
 
@@ -166,7 +171,11 @@ class OAuthRequest(object):
             for k, v in self.parameters.iteritems():
                 if k[:6] == 'oauth_':
                     auth_header += ', %s="%s"' % (k, escape(str(v)))
-        return {'Authorization': auth_header}
+                    
+        if self.http_method == 'POST':
+            return {'Authorization': auth_header, 'Content-type': 'application/x-www-form-urlencoded'}
+        else:
+            return {'Authorization': auth_header}
 
     def to_postdata(self):
         """Serialize as post data for a POST request."""
