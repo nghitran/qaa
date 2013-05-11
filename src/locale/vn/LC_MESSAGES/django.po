@@ -3586,7 +3586,7 @@ msgstr "trả lời"
 #: forum/views/readers.py:63 forum/views/readers.py:268
 #: forum/views/users.py:55 forum/views/users.py:56 forum/views/users.py:357
 msgid "votes"
-msgstr ""
+msgstr "hay"
 
 #: forum/skins/default/templates/question_summary_list_roll.html:15
 #: forum/skins/default/templates/question_list/item.html:19
