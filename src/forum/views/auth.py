@@ -137,6 +137,15 @@ def process_provider_signin(request, provider):
                 except:
                     uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider)
                     uassoc.save()
+                    if request.user.email_isvalid == False:
+                        user_data = provider_class.get_user_data(key=assoc_key, cookies=request.COOKIES)
+                        if not user_data:
+                            user_data = request.session.get('auth_consumer_data', {})
+                        if 'email' in user_data:
+                            if user_data.get('email', '') == request.user.email:
+                                request.user.email_isvalid = True
+                                request.user.save()
+                        
                     messages.add_message(request, messages.SUCCESS, _('The new credentials are now associated with your account'))
                     return HttpResponseRedirect(reverse('user_authsettings', args=[request.user.id]))
 
