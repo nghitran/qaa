@@ -33,7 +33,6 @@ from forum.actions import UserJoinsAction
 from forum.settings import REP_GAIN_BY_EMAIL_VALIDATION
 from vars import ON_SIGNIN_SESSION_ATTR, PENDING_SUBMISSION_SESSION_ATTR
 
-from forum_modules.facebookauth import settings as fb_settings
 
 def signin_page(request):
     referer = request.META.get('HTTP_REFERER', '/')
@@ -79,7 +78,6 @@ def signin_page(request):
             'top_stackitem_providers': top_stackitem_providers,
             'stackitem_providers': stackitem_providers,
             'smallicon_providers': smallicon_providers,
-            'fb_api_key': str(fb_settings.FB_API_KEY)
             },
             RequestContext(request))
 
@@ -209,7 +207,10 @@ def external_register(request):
             return HttpResponseRedirect(reverse('auth_signin'))
 
         provider_class = AUTH_PROVIDERS[auth_provider].consumer
-        user_data = provider_class.get_user_data(key=request.session['assoc_key'], cookies=request.COOKIES)
+        if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+            user_data = {'username': request.session['username'], 'email': request.session['email']}
+        else:
+            user_data = provider_class.get_user_data(request.session['assoc_key'])
 
         if not user_data:
             user_data = request.session.get('auth_consumer_data', {})
@@ -400,7 +401,7 @@ def login_and_forward(request, user, forward=None, message=None):
         if submission_time < datetime.datetime.now() - datetime.timedelta(minutes=int(settings.HOLD_PENDING_POSTS_MINUTES)):
             del request.session[PENDING_SUBMISSION_SESSION_ATTR]
         elif submission_time < datetime.datetime.now() - datetime.timedelta(minutes=int(settings.WARN_PENDING_POSTS_MINUTES)):
-            user.message_set.create(message=(_("You have a %s pending submission.") % pending_data['data_name']) + " %s, %s, %s" % (
+            messages.add_message(request, messages.INFO, message=(_("You have a %s pending submission.") % pending_data['data_name']) + " %s, %s, %s" % (
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('save')}), _("save it")),
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('review')}), _("review")),
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('cancel')}), _("cancel"))

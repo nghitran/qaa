@@ -554,6 +554,7 @@ class AuthKeyUserAssociation(models.Model):
     key = models.CharField(max_length=255, null=False, unique=True)
     provider = models.CharField(max_length=64)
     user = models.ForeignKey(User, related_name="auth_keys")
+    meta = models.CharField(max_length=255, null=True)
     added_at = models.DateTimeField(default=datetime.datetime.now)
 
     class Meta:

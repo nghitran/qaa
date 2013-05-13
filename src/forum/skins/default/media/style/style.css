@@ -221,7 +221,7 @@ blockquote {
 
 #nav a {
     background-color: #E5EBF8;
-    border-color: #888888 #888888 -moz-use-text-color;
+    /*border-color: #888888 #888888 -moz-use-text-color;*/
     border-style: solid solid none;
     border-width: 1px 1px medium;
     color: #333333;
