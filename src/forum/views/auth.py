@@ -118,7 +118,7 @@ def process_provider_signin(request, provider):
             if isinstance(assoc_key, (type, User)):
                 if request.user != assoc_key:
                     request.session['auth_error'] = _(
-                            "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
+                            "Sorry, these login credentials belong to another user. Please terminate your current session and try again."
                             )
                 else:
                     request.session['auth_error'] = _("You are already logged in with that user.")
@@ -130,15 +130,21 @@ def process_provider_signin(request, provider):
                                 "These login credentials are already associated with your account.")
                     else:
                         request.session['auth_error'] = _(
-                                "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
+                                "Sorry, these login credentials belong to another user. Please terminate your current session and try again."
                                 )
                 except:
-                    uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider)
+                    if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+                        user_data = provider_class.get_user_data(request.session['access_token'], 'username, email')
+                    else:
+                        user_data = provider_class.get_user_data(assoc_key)
+                        
+                    if not user_data:
+                        user_data = request.session.get('auth_consumer_data', {})
+
+                    meta_data = user_data.get('username', '')
+                    uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider, meta=meta_data)
                     uassoc.save()
                     if request.user.email_isvalid == False:
-                        user_data = provider_class.get_user_data(key=assoc_key, cookies=request.COOKIES)
-                        if not user_data:
-                            user_data = request.session.get('auth_consumer_data', {})
                         if 'email' in user_data:
                             if user_data.get('email', '') == request.user.email:
                                 request.user.email_isvalid = True
@@ -190,7 +196,17 @@ def external_register(request):
                         ["%s: %s" % (k, v) for k, v in request.META.items()]))
                 return HttpResponseRedirect(reverse('auth_signin'))
 
-            uassoc = AuthKeyUserAssociation(user=user_, key=assoc_key, provider=auth_provider)
+            if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+                user_data = provider_class.get_user_data(request.session['access_token'], 'username')
+            else:
+                user_data = provider_class.get_user_data(assoc_key)
+                
+            if not user_data:
+                user_data = request.session.get('auth_consumer_data', {})
+
+            meta_data = user_data.get('username', '')
+            
+            uassoc = AuthKeyUserAssociation(user=user_, key=assoc_key, provider=auth_provider, meta=meta_data)
             uassoc.save()
 
             del request.session['assoc_key']
@@ -208,7 +224,7 @@ def external_register(request):
 
         provider_class = AUTH_PROVIDERS[auth_provider].consumer
         if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
-            user_data = {'username': request.session['username'], 'email': request.session['email']}
+            user_data = provider_class.get_user_data(request.session['access_token'])
         else:
             user_data = provider_class.get_user_data(request.session['assoc_key'])
 

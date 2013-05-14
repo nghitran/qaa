@@ -559,3 +559,9 @@ class AuthKeyUserAssociation(models.Model):
 
     class Meta:
         app_label = 'forum'
+        
+    def __unicode__(self):
+        if self.meta != None or self.meta != "":
+            return self.meta
+        else:
+            return self.key

@@ -47,21 +47,19 @@ class FacebookAuthConsumer(AuthenticationConsumer):
         else:
             raise InvalidAuthentication(_("Something wrong happened, the authentication with Facebook connect failed"))
         
-        #try:
-        response = cgi.parse_qs(urlopen(GRAPH_API_ACCESS_TOKEN + urlencode(params)).read())
-        access_token = response["access_token"][-1]
+        try:
+            response = cgi.parse_qs(urlopen(GRAPH_API_ACCESS_TOKEN + urlencode(params)).read())
+            access_token = response["access_token"][-1]
 
-        user_data = self.get_user_data(access_token)
-        assoc_key = user_data["id"]
+            user_data = self.get_user_data(key=access_token, req_fields='id')
+            assoc_key = user_data["id"]
 
-        request.session["access_token"] = access_token
-        request.session["username"] = user_data["username"]
-        request.session["email"] = user_data["email"]
-        request.session["assoc_key"] = assoc_key
+            request.session["access_token"] = access_token
+            request.session["assoc_key"] = assoc_key
 
-        return assoc_key
-        #except Exception, e:
-        #    raise InvalidAuthentication(_("Something wrong happened, the authentication with Facebook connect failed"))
+            return assoc_key
+        except Exception, e:
+            raise InvalidAuthentication(_("Something wrong happened, the authentication with Facebook connect failed"))
         
     def urlsafe_b64decode(self, str):
         l = len(str)
@@ -103,34 +101,29 @@ class FacebookAuthConsumer(AuthenticationConsumer):
                 return response
         
         raise InvalidAuthentication(_('The authentication with Facebook connect failed, cannot find authentication tokens'))
+                
+    def get_user_data(self, key, req_fields='username,email,id'):
         
-    def get_user_data(self, key):
         request_data = {
             'access_token' : key,
-            'fields': 'username,email,id'
+            'fields': req_fields
         }
         
         query_resp = urlopen(GRAPH_API_USER + urlencode(request_data)).read()
         fb_response = _parse_json(query_resp)
 
-        user_email = ""
         if 'email' in fb_response:
-            user_email = smart_unicode(fb_response['email'])
+            fb_response['email'] = smart_unicode(fb_response['email'])
+            # If user email is longer than 75 characters (Django limit for email field) - leave it blank
+            if len(fb_response['email']) > 75:
+                fb_response['email'] = ''
         
-        # If user email is longer than 75 characters (Django limit for email field) - leave it blank
-        if len(user_email) > 75:
-            user_email = ''
-
-        username = fb_response['username']
-        # If the name is longer than 30 characters - leave it blank
-        if len(username) > 30:
-            username = ''
+        if 'username' in fb_response:
+            # If the name is longer than 30 characters - leave it blank
+            if len(fb_response['username']) > 30:
+                fb_response['username'] = ''
         
-        return {
-            'id': fb_response['id'],
-            'username': username,
-            'email': user_email
-        }
+        return fb_response
 
 
 class FacebookAuthContext(ConsumerTemplateContext):
