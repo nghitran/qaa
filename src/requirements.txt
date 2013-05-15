@@ -9,3 +9,4 @@ mysql-python
 South
 jsonfield
 git+https://github.com/nghitran/django-offline-messages.git
+git+https://github.com/nghitran/python-memcached.git
