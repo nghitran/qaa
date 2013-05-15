@@ -1,6 +1,7 @@
 django==1.4.5
 django-debug-toolbar
 markdown
+httplib2
 html5lib
 python-openid
 distribute>=0.6.28

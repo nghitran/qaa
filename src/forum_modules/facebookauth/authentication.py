@@ -6,6 +6,8 @@ from time import time
 from datetime import datetime
 from urllib import urlopen,  urlencode
 from forum.authentication.base import AuthenticationConsumer, ConsumerTemplateContext, InvalidAuthentication
+from forum import settings as django_settings
+from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext as _
 
 import settings
@@ -17,15 +19,47 @@ except ImportError:
     from django.utils import simplejson
     _parse_json = lambda s: simplejson.loads(s)
 
-REST_SERVER = 'http://api.facebook.com/restserver.php'
+DIALOG_API = 'https://www.facebook.com/dialog/oauth/?'
 GRAPH_API_USER = 'https://graph.facebook.com/me?'
 GRAPH_API_ACCESS_TOKEN = 'https://graph.facebook.com/oauth/access_token?'
 
 class FacebookAuthConsumer(AuthenticationConsumer):
     
+    def prepare_authentication_request(self, request, redirect_to):
+        params = dict(
+                client_id = str(settings.FB_API_KEY),
+                redirect_uri = "%s%s" % (django_settings.APP_URL, redirect_to),
+                scope = 'email'
+        )
+                
+        facebook_authenticate_url = DIALOG_API + urlencode(params)
+        return facebook_authenticate_url
+    
     def process_authentication_request(self, request):
-        response = self.parse_fb_cookie(request.COOKIES)
-        return response['user_id']
+        params = dict(
+                client_id = str(settings.FB_API_KEY), 
+                client_secret = str(settings.FB_APP_SECRET),
+                redirect_uri="%s%s" % (django_settings.APP_URL, request.path)
+        )
+
+        if 'code' in request.GET:
+            params["code"] = request.GET.get("code", '')
+        else:
+            raise InvalidAuthentication(_("Something wrong happened, the authentication with Facebook connect failed"))
+        
+        try:
+            response = cgi.parse_qs(urlopen(GRAPH_API_ACCESS_TOKEN + urlencode(params)).read())
+            access_token = response["access_token"][-1]
+
+            user_data = self.get_user_data(key=access_token, req_fields='id')
+            assoc_key = user_data["id"]
+
+            request.session["access_token"] = access_token
+            request.session["assoc_key"] = assoc_key
+
+            return assoc_key
+        except Exception, e:
+            raise InvalidAuthentication(_("Something wrong happened, the authentication with Facebook connect failed"))
         
     def urlsafe_b64decode(self, str):
         l = len(str)
@@ -67,52 +101,36 @@ class FacebookAuthConsumer(AuthenticationConsumer):
                 return response
         
         raise InvalidAuthentication(_('The authentication with Facebook connect failed, cannot find authentication tokens'))
+                
+    def get_user_data(self, key, req_fields='username,email,id'):
         
-    def get_user_data(self, key, cookies):
         request_data = {
-            'fields': 'username,email'
+            'access_token' : key,
+            'fields': req_fields
         }
-
-        parsed_data = self.parse_fb_cookie(cookies)
         
-        if parsed_data['user_id'] != key:
-             raise InvalidAuthentication(_('Invalid cookie, please clear your cookies then try again'))
-        
-        args = dict(
-            code = parsed_data['code'],
-            client_id = str(settings.FB_API_KEY),
-            client_secret = str(settings.FB_APP_SECRET),
-            redirect_uri = '',
-        )
-     
-        file = urlopen(GRAPH_API_ACCESS_TOKEN + urlencode(args))
-        try:
-            token_response = file.read()
-        finally:
-            file.close()
-     
-        access_token = cgi.parse_qs(token_response)["access_token"][-1]
-        
-        request_data['access_token'] = access_token
         query_resp = urlopen(GRAPH_API_USER + urlencode(request_data)).read()
         fb_response = _parse_json(query_resp)
 
-        user_email = ""
         if 'email' in fb_response:
-            user_email = fb_response['email']
+            fb_response['email'] = smart_unicode(fb_response['email'])
+            # If user email is longer than 75 characters (Django limit for email field) - leave it blank
+            if len(fb_response['email']) > 75:
+                fb_response['email'] = ''
         
-        return {
-            'username': fb_response['username'],
-            'email': user_email
-        }
+        if 'username' in fb_response:
+            # If the name is longer than 30 characters - leave it blank
+            if len(fb_response['username']) > 30:
+                fb_response['username'] = ''
+        
+        return fb_response
 
 
 class FacebookAuthContext(ConsumerTemplateContext):
     mode = 'BIGICON'
-    type = 'CUSTOM'
+    type = 'DIRECT'
     weight = 100
     human_name = 'Facebook'
-    code_template = 'modules/facebookauth/button.html'
-    extra_css = ["http://www.facebook.com/css/connect/connect_button.css"]
+    icon = '/media/images/openid/facebook.gif'
 
     API_KEY = settings.FB_API_KEY

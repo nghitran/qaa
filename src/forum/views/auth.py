@@ -33,7 +33,6 @@ from forum.actions import UserJoinsAction
 from forum.settings import REP_GAIN_BY_EMAIL_VALIDATION
 from vars import ON_SIGNIN_SESSION_ATTR, PENDING_SUBMISSION_SESSION_ATTR
 
-from forum_modules.facebookauth import settings as fb_settings
 
 def signin_page(request):
     referer = request.META.get('HTTP_REFERER', '/')
@@ -79,7 +78,6 @@ def signin_page(request):
             'top_stackitem_providers': top_stackitem_providers,
             'stackitem_providers': stackitem_providers,
             'smallicon_providers': smallicon_providers,
-            'fb_api_key': str(fb_settings.FB_API_KEY)
             },
             RequestContext(request))
 
@@ -120,7 +118,7 @@ def process_provider_signin(request, provider):
             if isinstance(assoc_key, (type, User)):
                 if request.user != assoc_key:
                     request.session['auth_error'] = _(
-                            "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
+                            "Sorry, these login credentials belong to another user. Please terminate your current session and try again."
                             )
                 else:
                     request.session['auth_error'] = _("You are already logged in with that user.")
@@ -132,11 +130,26 @@ def process_provider_signin(request, provider):
                                 "These login credentials are already associated with your account.")
                     else:
                         request.session['auth_error'] = _(
-                                "Sorry, these login credentials belong to another user. Plese terminate your current session and try again."
+                                "Sorry, these login credentials belong to another user. Please terminate your current session and try again."
                                 )
                 except:
-                    uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider)
+                    if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+                        user_data = provider_class.get_user_data(request.session['access_token'], 'username, email')
+                    else:
+                        user_data = provider_class.get_user_data(assoc_key)
+                        
+                    if not user_data:
+                        user_data = request.session.get('auth_consumer_data', {})
+
+                    meta_data = user_data.get('username', '')
+                    uassoc = AuthKeyUserAssociation(user=request.user, key=assoc_key, provider=provider, meta=meta_data)
                     uassoc.save()
+                    if request.user.email_isvalid == False:
+                        if 'email' in user_data:
+                            if user_data.get('email', '') == request.user.email:
+                                request.user.email_isvalid = True
+                                request.user.save()
+                        
                     messages.add_message(request, messages.SUCCESS, _('The new credentials are now associated with your account'))
                     return HttpResponseRedirect(reverse('user_authsettings', args=[request.user.id]))
 
@@ -183,7 +196,17 @@ def external_register(request):
                         ["%s: %s" % (k, v) for k, v in request.META.items()]))
                 return HttpResponseRedirect(reverse('auth_signin'))
 
-            uassoc = AuthKeyUserAssociation(user=user_, key=assoc_key, provider=auth_provider)
+            if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+                user_data = provider_class.get_user_data(request.session['access_token'], 'username')
+            else:
+                user_data = provider_class.get_user_data(assoc_key)
+                
+            if not user_data:
+                user_data = request.session.get('auth_consumer_data', {})
+
+            meta_data = user_data.get('username', '')
+            
+            uassoc = AuthKeyUserAssociation(user=user_, key=assoc_key, provider=auth_provider, meta=meta_data)
             uassoc.save()
 
             del request.session['assoc_key']
@@ -200,7 +223,10 @@ def external_register(request):
             return HttpResponseRedirect(reverse('auth_signin'))
 
         provider_class = AUTH_PROVIDERS[auth_provider].consumer
-        user_data = provider_class.get_user_data(key=request.session['assoc_key'], cookies=request.COOKIES)
+        if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
+            user_data = provider_class.get_user_data(request.session['access_token'])
+        else:
+            user_data = provider_class.get_user_data(request.session['assoc_key'])
 
         if not user_data:
             user_data = request.session.get('auth_consumer_data', {})
@@ -391,7 +417,7 @@ def login_and_forward(request, user, forward=None, message=None):
         if submission_time < datetime.datetime.now() - datetime.timedelta(minutes=int(settings.HOLD_PENDING_POSTS_MINUTES)):
             del request.session[PENDING_SUBMISSION_SESSION_ATTR]
         elif submission_time < datetime.datetime.now() - datetime.timedelta(minutes=int(settings.WARN_PENDING_POSTS_MINUTES)):
-            user.message_set.create(message=(_("You have a %s pending submission.") % pending_data['data_name']) + " %s, %s, %s" % (
+            messages.add_message(request, messages.INFO, message=(_("You have a %s pending submission.") % pending_data['data_name']) + " %s, %s, %s" % (
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('save')}), _("save it")),
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('review')}), _("review")),
                 html.hyperlink(reverse('manage_pending_data', kwargs={'action': _('cancel')}), _("cancel"))
