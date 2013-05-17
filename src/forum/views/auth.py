@@ -195,7 +195,8 @@ def external_register(request):
                 logging.error("Missing session data when trying to complete user registration: %s" % ", ".join(
                         ["%s: %s" % (k, v) for k, v in request.META.items()]))
                 return HttpResponseRedirect(reverse('auth_signin'))
-
+                
+            provider_class = AUTH_PROVIDERS[auth_provider].consumer
             if provider_class.__class__.__name__ == 'FacebookAuthConsumer':
                 user_data = provider_class.get_user_data(request.session['access_token'], 'username')
             else:
