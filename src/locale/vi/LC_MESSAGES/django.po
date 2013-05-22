@@ -3075,7 +3075,7 @@ msgstr "câu hỏi"
 #: forum/skins/default/templates/header.html:36
 #: forum/skins/default/templates/search.html:21 forum/views/users.py:60
 msgid "users"
-msgstr "tài khoản"
+msgstr "thành viên"
 
 #: forum/skins/default/templates/index.html:11
 msgid "welcome to "
@@ -7210,7 +7210,7 @@ msgstr ""
 
 #: forum_modules/exporter/templates/running.html:137
 msgid "Please wait while we import your data."
-msgstr ""
+msgstr "Làm ơn đợi trong khi chúng tôi đang nhập dữ liệu của bạn"
 
 #: forum_modules/exporter/templates/running.html:139
 msgid ""
@@ -7221,7 +7221,7 @@ msgstr ""
 
 #: forum_modules/exporter/templates/running.html:143
 msgid "Download file"
-msgstr ""
+msgstr "Tải tập tin"
 
 #: forum_modules/exporter/templates/running.html:148
 msgid "Total progress"
@@ -7229,27 +7229,27 @@ msgstr ""
 
 #: forum_modules/exporter/templates/running.html:158
 msgid " of "
-msgstr ""
+msgstr "của"
 
 #: forum_modules/facebookauth/authentication.py:48
 #, fuzzy
 msgid ""
 "Something wrong happened, the authentication with Facebook connect failed"
-msgstr "Chúng thực với kết nối Facebook không thành công"
+msgstr "Xác thực qua Facebook không thành công"
 
 #: forum_modules/facebookauth/authentication.py:82
 msgid "Pyload is not a json string!"
-msgstr ""
+msgstr "Pload không là một chuỗi json!"
 
 #: forum_modules/facebookauth/authentication.py:90
 msgid "Not HMAC-SHA256 encrypted!"
-msgstr ""
+msgstr "Không phải mã hóa HMAC-SHA256!"
 
 #: forum_modules/facebookauth/authentication.py:105
 msgid ""
 "The authentication with Facebook connect failed, cannot find authentication "
 "tokens"
-msgstr "Chúng thực với kết nối Facebook không thành công"
+msgstr "Xác thực qua Facebook không thành công"
 
 #: forum_modules/localauth/forms.py:75
 msgid "Please enter valid username and password (both are case-sensitive)."
