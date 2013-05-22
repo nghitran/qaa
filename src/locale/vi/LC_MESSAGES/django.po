@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-14 23:23+0700\n"
+"POT-Creation-Date: 2013-05-22 21:33+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Viet Nguyen <vietjovi@gmail.com>\n"
 "Language-Team: scafa <scafa-team.org>\n"
@@ -742,7 +742,7 @@ msgid "You have been penalized in %s reputation points."
 msgstr "Bạn đã vi phạm, bị trừ %s điểm uy tín"
 
 #: forum/actions/user.py:75 forum/templatetags/extra_tags.py:93
-#: forum/views/auth.py:234 forum_modules/exporter/templates/running.html:158
+#: forum/views/auth.py:251 forum_modules/exporter/templates/running.html:158
 msgid "unknown"
 msgstr "không hiểu"
 
@@ -2301,7 +2301,7 @@ msgstr "thêm"
 msgid "edit"
 msgstr "sửa"
 
-#: forum/settings/users.py:19 forum/views/auth.py:405 forum/views/auth.py:410
+#: forum/settings/users.py:19 forum/views/auth.py:422 forum/views/auth.py:427
 msgid "save"
 msgstr "lưu"
 
@@ -2821,7 +2821,7 @@ msgid "please try to provide details"
 msgstr "nội dung chứa đầy đủ thông tin cần thiết"
 
 #: forum/skins/default/templates/answer_edit_tips.html:16
-msgid "rõ ràng và ngắn gọn"
+msgid "be clear and concise"
 msgstr ""
 
 #: forum/skins/default/templates/answer_edit_tips.html:20
@@ -5386,6 +5386,15 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
+#: forum/skins/default/templates/users/subscriptions.html:35
+#: forum_modules/exporter/exporter.py:506
+msgid "Settings"
+msgstr "Thiết lập"
+
+#: forum/skins/default/templates/users/subscriptions.html:36
+msgid "Manage"
+msgstr "Quản lý"
+
 #: forum/skins/default/templates/users/subscriptions_management.html:6
 msgid "Manage your current subscriptions"
 msgstr "Quản lý theo dõi hiện thời của bạn"
@@ -5410,8 +5419,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Lựa chọn loại thông báo và tần suất "
-"mà bạn muốn nhận.<br />\n"
+"    Lựa chọn loại thông báo và tần suất mà bạn muốn nhận.<br />\n"
 "    "
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:17
@@ -5486,8 +5494,9 @@ msgstr "Thông báo khi tui đã thảo luận:"
 msgid ""
 "Notify me when someone replies to one of my comments on any post using the "
 "<pre>@username</pre> notation"
-msgstr "Thông báo tôi khi có người hồi đáp lại bình luận của tôi có sử dụng "
-"ký tự <pre>@username</pre>"
+msgstr ""
+"Thông báo tôi khi có người hồi đáp lại bình luận của tôi có sử dụng ký tự "
+"<pre>@username</pre>"
 
 #: forum/skins/default/templates/users/suspend_user.html:4
 msgid "Suspend user"
@@ -5809,8 +5818,9 @@ msgid "All selected nodes deleted"
 msgstr ""
 
 #: forum/views/auth.py:121 forum/views/auth.py:133
+#, fuzzy
 msgid ""
-"Sorry, these login credentials belong to another user. Plese terminate your "
+"Sorry, these login credentials belong to another user. Please terminate your "
 "current session and try again."
 msgstr ""
 "Thông tin đăng nhập này đã được sử dụng bới người dùng khác. Hãy ngưng phiên "
@@ -5824,11 +5834,11 @@ msgstr ""
 msgid "These login credentials are already associated with your account."
 msgstr "Thông tin đăng nhập này đả được liên kết với tài khoản của bạn."
 
-#: forum/views/auth.py:147
+#: forum/views/auth.py:153
 msgid "The new credentials are now associated with your account"
 msgstr "Thông tin đăng nhập mới đả được liên kết với tài khoản của bạn"
 
-#: forum/views/auth.py:187
+#: forum/views/auth.py:193
 msgid ""
 "Oops, something went wrong in the middle of this process. Please try again. "
 "Note that you need to have cookies enabled for the authentication to work."
@@ -5836,20 +5846,20 @@ msgstr ""
 "Có sự cố xảy ra, vui lòng thử lại. Lưu ý: Trình duyệt cần bật cookie để thực "
 "hiện chứng thực tài khoản."
 
-#: forum/views/auth.py:199 forum_modules/localauth/views.py:29
+#: forum/views/auth.py:216 forum_modules/localauth/views.py:29
 msgid "A welcome email has been sent to your email address. "
 msgstr "Một email chào mừng đã được gửi cho bạn"
 
-#: forum/views/auth.py:204
+#: forum/views/auth.py:221
 msgid ""
 "Oops, something went wrong in the middle of this process. Please try again."
 msgstr "Có sự cố xảy ra, vui lòng thử lại."
 
-#: forum/views/auth.py:261
+#: forum/views/auth.py:278
 msgid "An email has been sent with your temporary login key"
 msgstr "Một email đã được gửi với khóa đăng nhập tạm thời của bạn"
 
-#: forum/views/auth.py:282
+#: forum/views/auth.py:299
 msgid ""
 "You are logged in with a temporary access key, please take the time to fix "
 "your issue with authentication."
@@ -5857,51 +5867,51 @@ msgstr ""
 "Bạn đã đăng nhập với khóa truy cập tạm thời, làm ơn khắc phục vấn đề xác "
 "thực của bạn."
 
-#: forum/views/auth.py:302
+#: forum/views/auth.py:319
 msgid "A message with an email validation link was just sent to your address."
 msgstr ""
 "Một tin nhắn với liên kết xác nhận email đã được gửi tới địa chỉ của bạn"
 
-#: forum/views/auth.py:313
+#: forum/views/auth.py:330
 msgid "Thank you, your email is now validated."
 msgstr "Cảm ơn bạn, email đã được được xác nhận"
 
-#: forum/views/auth.py:338
+#: forum/views/auth.py:355
 msgid "New password set"
 msgstr "Thiết lập mật khẩu mới"
 
-#: forum/views/auth.py:342
+#: forum/views/auth.py:359
 msgid "Your password was changed"
 msgstr "Mật khẩu của bạn đã được thay đổi"
 
-#: forum/views/auth.py:378
+#: forum/views/auth.py:395
 #, python-format
 msgid "You removed the association with %s"
 msgstr "Bạn đã xóa sự liên quan này với %s"
 
-#: forum/views/auth.py:390
+#: forum/views/auth.py:407
 #, python-format
 msgid "Welcome back %s, you are now logged in"
 msgstr "Chào mừng %s, bạn đã đăng nhập thành công"
 
-#: forum/views/auth.py:404
+#: forum/views/auth.py:421
 #, python-format
 msgid "You have a %s pending submission."
 msgstr "Bạn có a %s đang chờ xử lý."
 
-#: forum/views/auth.py:405
+#: forum/views/auth.py:422
 msgid "save it"
 msgstr "lưu nó"
 
-#: forum/views/auth.py:406 forum/views/writers.py:279
+#: forum/views/auth.py:423 forum/views/writers.py:279
 msgid "review"
 msgstr "đánh giá"
 
-#: forum/views/auth.py:407 forum/views/writers.py:276
+#: forum/views/auth.py:424 forum/views/writers.py:276
 msgid "cancel"
 msgstr "hủy bỏ"
 
-#: forum/views/auth.py:415
+#: forum/views/auth.py:432
 msgid "Sorry, but this account is suspended"
 msgstr "Xin lỗi, tài khoản này đã bị khóa"
 
@@ -7057,10 +7067,6 @@ msgstr ""
 msgid "Awards"
 msgstr ""
 
-#: forum_modules/exporter/exporter.py:506
-msgid "Settings"
-msgstr ""
-
 #: forum_modules/exporter/forms.py:5
 msgid "tar.gz"
 msgstr ""
@@ -7237,20 +7243,21 @@ msgid " of "
 msgstr "của"
 
 #: forum_modules/facebookauth/authentication.py:48
+#: forum_modules/facebookauth/authentication.py:62
 #, fuzzy
 msgid ""
 "Something wrong happened, the authentication with Facebook connect failed"
 msgstr "Xác thực qua Facebook không thành công"
 
-#: forum_modules/facebookauth/authentication.py:82
+#: forum_modules/facebookauth/authentication.py:80
 msgid "Pyload is not a json string!"
 msgstr "Pload không là một chuỗi json!"
 
-#: forum_modules/facebookauth/authentication.py:90
+#: forum_modules/facebookauth/authentication.py:88
 msgid "Not HMAC-SHA256 encrypted!"
 msgstr "Không phải mã hóa HMAC-SHA256!"
 
-#: forum_modules/facebookauth/authentication.py:105
+#: forum_modules/facebookauth/authentication.py:103
 msgid ""
 "The authentication with Facebook connect failed, cannot find authentication "
 "tokens"
