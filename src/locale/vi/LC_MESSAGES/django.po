@@ -1044,7 +1044,7 @@ msgstr "nội dung câu trả lời phải có ít nhất %s kí tự"
 #: forum/forms/qanda.py:71 forum/skins/default/templates/header.html:35
 #: forum/skins/default/templates/search.html:20 forum/views/readers.py:223
 msgid "tags"
-msgstr "thẻ"
+msgstr "Thẻ"
 
 #: forum/forms/qanda.py:73
 #, python-format
@@ -2810,24 +2810,24 @@ msgstr "các mẹo trả lời"
 
 #: forum/skins/default/templates/answer_edit_tips.html:7
 msgid "please make your answer relevant to this community"
-msgstr ""
+msgstr "câu trả lời phải liên quan đến câu hỏi"
 
 #: forum/skins/default/templates/answer_edit_tips.html:10
 msgid "try to give an answer, rather than engage into a discussion"
-msgstr ""
+msgstr "cố gắng đưa ra câu trả lời thay vì thảo luận"
 
 #: forum/skins/default/templates/answer_edit_tips.html:13
 msgid "please try to provide details"
-msgstr ""
+msgstr "nội dung chứa đầy đủ thông tin cần thiết"
 
 #: forum/skins/default/templates/answer_edit_tips.html:16
-msgid "be clear and concise"
+msgid "rõ ràng và ngắn gọn"
 msgstr ""
 
 #: forum/skins/default/templates/answer_edit_tips.html:20
 #: forum/skins/default/templates/question_edit_tips.html:9
 msgid "see frequently asked questions"
-msgstr ""
+msgstr "xem FAQ"
 
 #: forum/skins/default/templates/ask.html:4
 #: forum/skins/default/templates/ask.html:92
@@ -3057,7 +3057,7 @@ msgstr "quay lại trang chủ"
 
 #: forum/skins/default/templates/header.html:20
 msgid "ask a question"
-msgstr "đặt câu hỏi"
+msgstr "Đặt câu hỏi"
 
 #: forum/skins/default/templates/header.html:30
 #: forum/skins/default/templates/opensearch.html:7
@@ -3070,12 +3070,12 @@ msgstr "tìm kiếm"
 #: forum/views/readers.py:100 forum/views/readers.py:144
 #: forum/views/users.py:318
 msgid "questions"
-msgstr "câu hỏi"
+msgstr "Câu hỏi"
 
 #: forum/skins/default/templates/header.html:36
 #: forum/skins/default/templates/search.html:21 forum/views/users.py:60
 msgid "users"
-msgstr "thành viên"
+msgstr "Thành viên"
 
 #: forum/skins/default/templates/index.html:11
 msgid "welcome to "
@@ -3498,7 +3498,7 @@ msgstr "thời gian hỏi"
 
 #: forum/skins/default/templates/question.html:298
 msgid "question was seen"
-msgstr "câu hỏi đã được xem"
+msgstr "số lần xem"
 
 #: forum/skins/default/templates/question.html:298
 msgid "times"
@@ -3506,7 +3506,7 @@ msgstr "lần"
 
 #: forum/skins/default/templates/question.html:301
 msgid "last updated"
-msgstr "cập nhật mới nhất"
+msgstr "cập nhật lần cuối"
 
 #: forum/skins/default/templates/question.html:307
 msgid "Related questions"
@@ -5283,7 +5283,7 @@ msgstr "Luôn ghi nhớ thứ tự của danh sách đã sắp xếp"
 #: forum/skins/default/templates/users/signature.html:23
 #: forum/templatetags/extra_tags.py:76 forum/views/meta.py:89
 msgid "badges"
-msgstr "danh hiệu"
+msgstr "Danh hiệu"
 
 #: forum/skins/default/templates/users/signature.html:31
 #: forum/templatetags/extra_tags.py:49
@@ -5388,19 +5388,19 @@ msgstr[1] ""
 
 #: forum/skins/default/templates/users/subscriptions_management.html:6
 msgid "Manage your current subscriptions"
-msgstr ""
+msgstr "Quản lý theo dõi hiện thời của bạn"
 
 #: forum/skins/default/templates/users/subscriptions_management.html:9
 msgid "don't show auto-subscribe"
-msgstr ""
+msgstr "không hiện tự động theo dõi"
 
 #: forum/skins/default/templates/users/subscriptions_management.html:11
 msgid "show auto-subscribe"
-msgstr ""
+msgstr "hiện tự động theo dõi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:5
 msgid "Notifications and subscription settings"
-msgstr ""
+msgstr "Thông báo và thiết lập theo dõi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:7
 msgid ""
@@ -5409,38 +5409,42 @@ msgid ""
 "and their frequency.<br />\n"
 "    "
 msgstr ""
+"\n"
+"    Lựa chọn loại thông báo và tần suất "
+"mà bạn muốn nhận.<br />\n"
+"    "
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:17
 msgid "Notify me when:"
-msgstr ""
+msgstr "Thông báo tôi khi:"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:21
 msgid "A new member joins"
-msgstr ""
+msgstr "Có thành viên mới"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:25
 msgid "A new question is posted"
-msgstr ""
+msgstr "Có câu hỏi mới"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:29
 msgid "A new question matching my interesting tags is posted"
-msgstr ""
+msgstr "Câu hỏi mới có chứa thẻ yêu thích của tôi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:33
 msgid "There's an update on one of my subscriptions"
-msgstr ""
+msgstr "Có cập nhật mới trong theo dõi của tôi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:41
 msgid "Auto subscribe me to:"
-msgstr ""
+msgstr "Tự động theo dõi:"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:46
 msgid "Questions I view"
-msgstr ""
+msgstr "Câu hỏi tôi xem"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:49
 msgid "All questions matching my interesting tags"
-msgstr ""
+msgstr "Tất cả câu hỏi có chứa thẻ yêu thích của tôi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:52
 msgid "All questions"
@@ -5448,41 +5452,42 @@ msgstr "Tất cả câu hỏi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:60
 msgid "On my subscriptions, notify me when:"
-msgstr ""
+msgstr "Với các theo dõi của tôi, thông báo khi:"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:65
 msgid "An answer is posted"
-msgstr ""
+msgstr "Có câu trả lời"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:68
 msgid "A comment on one of my posts is posted"
-msgstr ""
+msgstr "Có bình luận trên bài viết của tôi"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:73
 msgid "A comment is posted"
-msgstr ""
+msgstr "Một bình luận được đăng"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:76
 msgid "An answer is accepted"
-msgstr ""
+msgstr "Câu trả lời được chấp nhận"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:84
 msgid "Daily Digest:"
-msgstr ""
+msgstr "Thông tin hàng ngày:"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:89
 msgid "Send me the daily digest with information about the site activity"
-msgstr ""
+msgstr "Gửi tôi thông tin hàng ngày về hoạt động của trang web"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:94
 msgid "Notify When I'm Discussed:"
-msgstr ""
+msgstr "Thông báo khi tui đã thảo luận:"
 
 #: forum/skins/default/templates/users/subscriptions_settings.html:99
 msgid ""
 "Notify me when someone replies to one of my comments on any post using the "
 "<pre>@username</pre> notation"
-msgstr ""
+msgstr "Thông báo tôi khi có người hồi đáp lại bình luận của tôi có sử dụng "
+"ký tự <pre>@username</pre>"
 
 #: forum/skins/default/templates/users/suspend_user.html:4
 msgid "Suspend user"
@@ -6206,7 +6211,7 @@ msgstr "câu hỏi mới nhất"
 
 #: forum/views/readers.py:90
 msgid "unanswered"
-msgstr "chưa giải đáp"
+msgstr "Chưa giải đáp"
 
 #: forum/views/readers.py:94
 msgid "open questions without an accepted answer"
