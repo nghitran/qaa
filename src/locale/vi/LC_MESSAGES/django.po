@@ -1350,7 +1350,7 @@ msgstr "Tiêu đề ứng dụng sẽ được hiển thị trên tiêu đề tr
 
 #: forum/settings/basic.py:26
 msgid "Application short name"
-msgstr ""
+msgstr "Tên viết tắt ứng dụng"
 
 #: forum/settings/basic.py:30
 msgid "Application keywords"
@@ -2836,7 +2836,7 @@ msgstr "Đặt câu hỏi"
 
 #: forum/skins/default/templates/ask.html:99
 msgid "You are welcome to start submitting your question anonymously."
-msgstr ""
+msgstr "Bạn có thể gửi câu hỏi mà không cần phải đăng kí."
 
 #: forum/skins/default/templates/ask.html:100
 msgid ""
@@ -2847,6 +2847,12 @@ msgid ""
 "will be published after you login with your existing account,\n"
 "                    or signup for a new account"
 msgstr ""
+"\n"
+"                    Sau khi gửi câu hỏi, bạn sẽ được chuyển tới "
+"trang đăng nhập hoặc đăng kí.\n"
+"                    câu hỏi của bạn sẽ được lưu giữ trong phiên làm việc này và "
+"sẽ được đăng khi bạn đăng nhập,\n"
+"                    hoặc đăng kí một tài khoản mới"
 
 #: forum/skins/default/templates/ask.html:104
 msgid "and validate your email."
@@ -2855,7 +2861,9 @@ msgstr "và xác nhận email của bạn"
 #: forum/skins/default/templates/ask.html:109
 msgid ""
 "Remember, your question will not be published until you validate your email."
-msgstr "Câu hỏi của bạn sẽ không xuất hiện cho đến khi bạn xác nhận qua email"
+msgstr 
+""
+"Câu hỏi này sẽ không được đăng cho đến khi email của bạn được xác nhận."
 
 #: forum/skins/default/templates/ask.html:110
 #: forum/skins/default/templates/users/info.html:86
@@ -3092,7 +3100,7 @@ msgid ""
 "permanently remove your account."
 msgstr ""
 "Bạn có thể đăng nhập bằng OpenID như một người dùng đã đăng kí, hãy đăng "
-"xuất khỏi trang web hoặcxóa tài khoản của bạn ngay lập tức"
+"xuất khỏi trang web hoặc xóa tài khoản của bạn."
 
 #: forum/skins/default/templates/logout.html:20
 msgid "Logout now"
@@ -3114,6 +3122,10 @@ msgid ""
 "\"http://daringfireball.net/projects/markdown/syntax\" rel=\"nofollow"
 "\">Markdown Syntax</a> page"
 msgstr ""
+"Đây là một số ví dụ cơ bản của cú pháp markdown. "
+"Ngoài ra, bạn có thể truy cập vào trang web <a href="
+"\"http://daringfireball.net/projects/markdown/syntax\" rel=\"nofollow"
+"\">John Gruber - Markdown Syntax</a> để xem đây đủ về cú pháp này."
 
 #: forum/skins/default/templates/markdown_help.html:20
 msgid "Headers"
@@ -3124,6 +3136,7 @@ msgid ""
 "For top-level headers underline the text with equal signs.  For second-level "
 "headers use dashes to underline."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:26
 #: forum/skins/default/templates/markdown_help.html:30
@@ -3146,6 +3159,7 @@ msgid ""
 "single hash indicates a header level of one while two indicates the second "
 "header level:"
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:67
 #: forum/skins/default/templates/markdown_help.html:70
@@ -3158,6 +3172,7 @@ msgid ""
 "the text document.  In both cases, the final, fully formatted, document "
 "looks the same."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:80
 msgid "Paragraphs"
@@ -3166,6 +3181,7 @@ msgstr ""
 #: forum/skins/default/templates/markdown_help.html:82
 msgid "Paragraphs are surrounded by blank lines."
 msgstr ""
+"Đoạn văn được bao quanh bởi các dòng trống."
 
 #: forum/skins/default/templates/markdown_help.html:85
 msgid "This is paragraph one."
@@ -3189,6 +3205,8 @@ msgid ""
 "is surrounded in parenthesis.\n"
 "                "
 msgstr ""
+"\n"
+"                "
 
 #: forum/skins/default/templates/markdown_help.html:103
 #: forum/skins/default/templates/markdown_help.html:106
@@ -3208,6 +3226,7 @@ msgid ""
 "To indicate bold text surround the text with two star (*) symbols or two "
 "underscore (_) symbols:"
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:118
 #: forum/skins/default/templates/markdown_help.html:121
@@ -3224,6 +3243,7 @@ msgid ""
 "To indicate italicized text surround the text with a single star (*) symbol "
 "or underscore (_) symbol:"
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:138
 #: forum/skins/default/templates/markdown_help.html:141
@@ -3240,6 +3260,7 @@ msgid ""
 "To indicate italicized and bold text surround the text with three star (*) "
 "symbol or underscore (_) symbol:"
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:158
 #: forum/skins/default/templates/markdown_help.html:161
@@ -3260,6 +3281,7 @@ msgid ""
 "To create an indented area use the right angle bracket (&gt;) character "
 "before each line to be included in the blockquote."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:182
 #: forum/skins/default/templates/markdown_help.html:186
@@ -3278,6 +3300,7 @@ msgid ""
 "Rather than putting it in front of each line to include in the block quote "
 "you can put it at the beginning and end the quote with a newline."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:196
 #: forum/skins/default/templates/markdown_help.html:200
@@ -3299,6 +3322,7 @@ msgid ""
 "number followed by a period and space.  The number you use actually doesn't "
 "matter."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:213
 #: forum/skins/default/templates/markdown_help.html:214
@@ -3314,6 +3338,7 @@ msgid ""
 "To create a bulleted list, prefix each item in the list with a star (*) "
 "character."
 msgstr ""
+" "
 
 #: forum/skins/default/templates/markdown_help.html:231
 #: forum/skins/default/templates/markdown_help.html:237
@@ -3342,6 +3367,9 @@ msgid ""
 "daringfireball.net/projects/markdown/syntax\" target=\"_blank\" rel="
 "\"nofollow\">go to the Markdown page where it all started</a>."
 msgstr ""
+"<a href=\"http://"
+"daringfireball.net/projects/markdown/syntax\" target=\"_blank\" rel="
+"\"nofollow\">Tìm hiểu thêm về markdown</a>."
 
 #: forum/skins/default/templates/notarobot.html:3
 msgid "Please prove that you are a Human Being"
@@ -3364,7 +3392,7 @@ msgstr "sử dụng trình duyệt của bạn"
 #: forum/skins/default/templates/pagesize.html:6
 #: forum/skins/default/templates/paginator/page_sizes.html:4
 msgid "posts per page"
-msgstr "số bài trên một trang"
+msgstr "Số bài trên một trang"
 
 #: forum/skins/default/templates/paginator.html:6
 #: forum/skins/default/templates/paginator.html:7
@@ -6205,7 +6233,7 @@ msgstr "đã sử dụng"
 
 #: forum/views/readers.py:69
 msgid "by popularity"
-msgstr "theo độ phổ biến"
+msgstr "theo mức độ phổ biến"
 
 #: forum/views/readers.py:69
 msgid "sorted by frequency of tag use"
