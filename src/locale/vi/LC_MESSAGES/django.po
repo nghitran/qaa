@@ -4052,7 +4052,7 @@ msgstr "Tên đăng nhập: "
 #: forum/skins/default/templates/auth/welcome_email.html:22
 #: forum/skins/default/templates/auth/welcome_email.html:38
 msgid "Password: As IF we would send your password in cleartext!"
-msgstr "Mật khẩu: Chúng tôi sẽ gửi mật khẩu của bạn ở dạng cleartext!"
+msgstr "Mật khẩu: ******"
 
 #: forum/skins/default/templates/auth/welcome_email.html:24
 msgid "The following link will help us verify your email address:"
@@ -4219,11 +4219,11 @@ msgstr "Cảm ơn"
 
 #: forum/skins/default/templates/notifications/base.html:26
 msgid "P.S. You can always fine-tune which notifications you receive"
-msgstr ""
+msgstr "P/S: Bạn có thể cấu hình thông báo"
 
 #: forum/skins/default/templates/notifications/base_text.html:13
 msgid "P.S. You can always fine-tune which notifications you receive here:"
-msgstr ""
+msgstr "P/S: Bạn có thể cấu hình thông báo tại đây:"
 
 #: forum/skins/default/templates/notifications/digest.html:14
 #, python-format
@@ -4322,6 +4322,12 @@ msgid ""
 "            %(question_link)s:\n"
 "            "
 msgstr ""
+"\n"
+"            %(author_link)s đã gửi một câu trả lời trên %(app_name)s cho "
+"câu hỏi\n"
+"            %(question_link)s:\n"
+"            "
+
 
 #: forum/skins/default/templates/notifications/newanswer.html:30
 #: forum/skins/default/templates/notifications/newanswer.html:40
@@ -4330,7 +4336,7 @@ msgstr ""
 #: forum/skins/default/templates/notifications/newquestion.html:33
 #: forum/skins/default/templates/notifications/newquestion.html:43
 msgid "Don't forget to come over and cast your vote."
-msgstr ""
+msgstr "Đừng quên đánh giá và đưa ra bình chọn của bạn"
 
 #: forum/skins/default/templates/notifications/newanswer.html:34
 #, python-format
@@ -4340,46 +4346,50 @@ msgid ""
 "question\n"
 "\"%(question_title)s\":\n"
 msgstr ""
+"\n"
+"%(answer_author)s đã gửi một câu trả lời trên %(safe_app_name)s cho "
+"câu hỏi\n"
+"\"%(question_title)s\":\n"
 
 #: forum/skins/default/templates/notifications/newcomment.html:17
 #, python-format
 msgid "%(prefix)s New comment on: %(question_title)s"
-msgstr ""
+msgstr "%(prefix)s Bình luận mới tại: %(question_title)s"
 
 #: forum/skins/default/templates/notifications/newcomment.html:21
 #, python-format
 msgid "%(author_link)s has just posted a comment on "
-msgstr ""
+msgstr "%(author_link)s có một bình luận mới "
 
 #: forum/skins/default/templates/notifications/newcomment.html:23
 #, python-format
 msgid "the answer posted by %(post_author)s to "
-msgstr ""
+msgstr "câu trả lời được gửi bởi %(post_author)s đến "
 
 #: forum/skins/default/templates/notifications/newcomment.html:25
 #, python-format
 msgid "the question %(question_link)s"
-msgstr ""
+msgstr "câu hỏi %(question_link)s"
 
 #: forum/skins/default/templates/notifications/newcomment.html:36
 #, python-format
 msgid "%(comment_author)s has just posted a comment on "
-msgstr ""
+msgstr "%(comment_author)s đã gửi một bình luận tới "
 
 #: forum/skins/default/templates/notifications/newcomment.html:38
 #, python-format
 msgid "the answer posted by %(safe_post_author)s to "
-msgstr ""
+msgstr "câu trả lời được gửi bởi %(safe_post_author)s tới "
 
 #: forum/skins/default/templates/notifications/newcomment.html:40
 #, python-format
 msgid "the question \"%(question_title)s\""
-msgstr ""
+msgstr "câu hỏi \"%(question_title)s\""
 
 #: forum/skins/default/templates/notifications/newmember.html:15
 #, python-format
 msgid "%(prefix)s %(safe_newmember_name)s is a new member on %(safe_app_name)s"
-msgstr ""
+msgstr "%(prefix)s %(safe_newmember_name)s là một thành viên mới trên %(safe_app_name)s"
 
 #: forum/skins/default/templates/notifications/newmember.html:19
 #, python-format
