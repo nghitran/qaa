@@ -4359,12 +4359,12 @@ msgstr "%(prefix)s Bình luận mới tại: %(question_title)s"
 #: forum/skins/default/templates/notifications/newcomment.html:21
 #, python-format
 msgid "%(author_link)s has just posted a comment on "
-msgstr "%(author_link)s có một bình luận mới "
+msgstr "%(author_link)s có một bình luận tới "
 
 #: forum/skins/default/templates/notifications/newcomment.html:23
 #, python-format
 msgid "the answer posted by %(post_author)s to "
-msgstr "câu trả lời được gửi bởi %(post_author)s đến "
+msgstr "câu trả lời của %(post_author)s cho "
 
 #: forum/skins/default/templates/notifications/newcomment.html:25
 #, python-format
@@ -5577,7 +5577,7 @@ msgstr "Nếu thiết lập, chỉ người dùng bị đình chỉ sẽ nhìn t
 #: forum_modules/exporter/exporter.py:345
 #: forum_modules/exporter/importer.py:342
 msgid "Users"
-msgstr "Người dùng"
+msgstr "Thành viên"
 
 #: forum/skins/default/templates/users/votes.html:15
 #: forum/views/commands.py:72
